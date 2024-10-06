@@ -8,18 +8,18 @@ import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import { createUser } from "@/lib/actions/patient.actions";
 import { UserFormValidation } from "@/lib/validation";
-import CustomFormField from "../CustomFormField";
+import CustomFormField, {FormFieldType} from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 
-export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  PHONE_INPUT = "phoneInput",
-  CHECKBOX = "checkbox",
-  DATE_PICKER = "datePicker",
-  SELECT = "select",
-  SKELETON = "skeleton",
-}
+// export enum FormFieldType {
+//   INPUT = "input",
+//   TEXTAREA = "textarea",
+//   PHONE_INPUT = "phoneInput",
+//   CHECKBOX = "checkbox",
+//   DATE_PICKER = "datePicker",
+//   SELECT = "select",
+//   SKELETON = "skeleton",
+// }
 
 
 const PatientForm = () => {

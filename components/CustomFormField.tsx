@@ -1,4 +1,4 @@
-import React from "react";
+import { E164Number } from "libphonenumber-js/core";
 import {
   FormControl,
   // FormControl,
@@ -10,11 +10,22 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Control } from "react-hook-form";
-import { FormFieldType } from "./forms/PatientForm";
+// import { FormFieldType } from "./forms/PatientForm";
 import Image from "next/image";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import { Camera, UserRound } from "lucide-react";
+// import { Camera, UserRound } from "lucide-react";
+
+
+export enum FormFieldType {
+  INPUT = "input",
+  TEXTAREA = "textarea",
+  PHONE_INPUT = "phoneInput",
+  CHECKBOX = "checkbox",
+  DATE_PICKER = "datePicker",
+  SELECT = "select",
+  SKELETON = "skeleton",
+}
 
 interface CustomProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,31 +45,25 @@ interface CustomProps {
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
-  const { fieldType, iconSrc, iconAlt, placeholder } = props;
-  type E164Number = string;
 
-
-  switch (fieldType) {
+  switch (props.fieldType) {
     case FormFieldType.INPUT:
       return (
         <div className="flex rounded-md border border-dark-500 bg-dark-400">
-          {iconSrc && (
+          {props.iconSrc && (
             <Image
-              src={iconSrc}
+              src={props.iconSrc}
               height={24}
               width={24}
-              alt={iconAlt || "icon"}
+              alt={props.iconAlt || "icon"}
               className="ml-2"
             />
           )}
-          if
-
-          <Camera color="red" size={48} />
-          <UserRound />
+          
 
           <FormControl>
             <Input
-              placeholder={placeholder}
+              placeholder={props.placeholder}
               {...field}
               className="shad-input border-0"
             />
@@ -70,7 +75,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         <FormControl>
           <PhoneInput
             defaultCountry="DE"
-            placeholder={placeholder}
+            placeholder={props.placeholder}
             international
             withCountryCallingCode
             value={(field.value as E164Number) || undefined}
@@ -80,7 +85,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
         </FormControl>
       );
     default:
-      break;
+      return null
   }
 };
 
