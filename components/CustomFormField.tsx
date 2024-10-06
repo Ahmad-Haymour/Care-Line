@@ -14,6 +14,7 @@ import { FormFieldType } from "./forms/PatientForm";
 import Image from "next/image";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import { Camera, UserRound } from "lucide-react";
 
 interface CustomProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,6 +51,11 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
               className="ml-2"
             />
           )}
+          if
+
+          <Camera color="red" size={48} />
+          <UserRound />
+
           <FormControl>
             <Input
               placeholder={placeholder}
@@ -77,6 +83,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
       break;
   }
 };
+
 const CustomFormField = (props: CustomProps) => {
   const { control, fieldType, name, label } = props;
 
