@@ -47,15 +47,21 @@ const PatientForm = () => {
         }
         const newUser = await createUser(user)
         console.log('user', user);
-        console.log('New User', newUser);
-        
+        console.log('New User 1', newUser);
 
-        if (newUser?.$id) router.push(`/patients/${newUser.$id}/register`)
+        if (newUser && newUser.$id) {
+          console.log('New User true ', newUser);
 
-          console.log('New User', newUser);
+          router.push(`/patients/${newUser.$id}/register`)
+        } 
+        else {
+          console.log('New User false does not have an $id ', newUser);          
+        }
+
+          console.log('New User 2', newUser);
 
     } catch (error) {
-        console.log(error);     
+        console.log('Error during user creation ', error);     
     }
     setIsLoading(false)
   }
