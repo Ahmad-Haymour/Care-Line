@@ -1,15 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { z } from "zod";
-// import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { createUser } from "@/lib/actions/patient.actions";
+import { UserFormValidation } from "@/lib/validation";
 import CustomFormField from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
-import { useState } from "react";
-import { UserFormValidation } from "@/lib/validation";
-// import { useRouter } from "next/navigation";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -23,7 +23,7 @@ export enum FormFieldType {
 
 
 const PatientForm = () => {
-//   const router = useRouter();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
     // 1. Define your form.
   const form = useForm<z.infer<typeof UserFormValidation>>({
@@ -38,16 +38,26 @@ const PatientForm = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof UserFormValidation>) {
     setIsLoading(true)
-    console.log(values);
 
     try {
-        // const userData = {name, email, phone}
-        // const user = await createUser(userData)
+        const user = {
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+        }
+        const newUser = await createUser(user)
+        console.log('user', user);
+        console.log('New User', newUser);
+        
 
-        // if (user) router.push(`/patient/${user.$id}/register`)
+        if (newUser?.$id) router.push(`/patients/${newUser.$id}/register`)
+
+          console.log('New User', newUser);
+
     } catch (error) {
         console.log(error);     
     }
+    setIsLoading(false)
   }
 
   return (
@@ -72,7 +82,7 @@ const PatientForm = () => {
           name="email"
           label="Email"
           placeholder="thomasmuester@email.com"
-          iconSrc="/assets/icons/user.svg"
+          iconSrc="/assets/icons/email.svg"
           iconAlt="user"
         />
         <CustomFormField
@@ -81,12 +91,12 @@ const PatientForm = () => {
           name="phone"
           label="Phone number"
           placeholder="(555) 123-4567"
-          iconSrc="/assets/icons/user.svg"
-          iconAlt="user"
         />
-        <SubmitButton isLoading={isLoading} type="submit">
+
+        <SubmitButton isLoading={isLoading}>
           Get Started
         </SubmitButton>
+
       </form>
     </Form>
   );
