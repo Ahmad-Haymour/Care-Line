@@ -11,21 +11,11 @@ import { UserFormValidation } from "@/lib/validation";
 import CustomFormField, {FormFieldType} from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 
-// export enum FormFieldType {
-//   INPUT = "input",
-//   TEXTAREA = "textarea",
-//   PHONE_INPUT = "phoneInput",
-//   CHECKBOX = "checkbox",
-//   DATE_PICKER = "datePicker",
-//   SELECT = "select",
-//   SKELETON = "skeleton",
-// }
-
-
 const PatientForm = () => {
+  
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-    // 1. Define your form.
+  //   Form
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
     defaultValues: {
@@ -35,7 +25,7 @@ const PatientForm = () => {
     },
   });
 
-  // 2. Define a submit handler.
+  //  Submit handler
   async function onSubmit(values: z.infer<typeof UserFormValidation>) {
     setIsLoading(true)
 
@@ -45,20 +35,15 @@ const PatientForm = () => {
           email: values.email,
           phone: values.phone,
         }
+
         const newUser = await createUser(user)
-        console.log('user', user);
-        console.log('New User 1', newUser);
 
         if (newUser && newUser.$id) {
-          console.log('New User true ', newUser);
-
+          console.log('New user exists ', newUser);
           router.push(`/patients/${newUser.$id}/register`)
-        } 
-        else {
+        } else {
           console.log('New User false does not have an $id ', newUser);          
         }
-
-          console.log('New User 2', newUser);
 
     } catch (error) {
         console.log('Error during user creation ', error);     
