@@ -1,14 +1,17 @@
 import PatientForm from "@/components/forms/PatientForm";
+import PasskeyModal from "@/components/PasskeyModal";
 import { ModeToggle } from "@/components/ModeToggle";
 import Link from "next/link";
-// import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export default function Home() {
+export default function Home({searchParams}: SearchParamProps) {
+  const isAdmin = searchParams.admin === 'true';
+
   return (
-    <div>
+    <div className="flex h-screen max-h-screen">
       <ModeToggle/>
 
+      {isAdmin && <PasskeyModal />}
       <section className="container my-auto remove-scrollbar">
         <div className="sub-container max-w-[496px]">
           <Image

@@ -8,14 +8,12 @@ import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import { createUser } from "@/lib/actions/patient.actions";
 import { UserFormValidation } from "@/lib/validation";
-import CustomFormField, {FormFieldType} from "../CustomFormField";
+import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 
 const PatientForm = () => {
-  
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  //   Form
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
     defaultValues: {
@@ -25,38 +23,35 @@ const PatientForm = () => {
     },
   });
 
-  //  Submit handler
   async function onSubmit(values: z.infer<typeof UserFormValidation>) {
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-        const user = {
-          name: values.name,
-          email: values.email,
-          phone: values.phone,
-        }
+      const user = {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+      };
+      const newUser = await createUser(user);
+      console.log("New user patientForm > ", newUser);
 
-        const newUser = await createUser(user)
-
-        if (newUser && newUser.$id) {
-          console.log('New user exists ', newUser);
-          router.push(`/patients/${newUser.$id}/register`)
-        } else {
-          console.log('New User false does not have an $id ', newUser);          
-        }
-
+      if (newUser && newUser.$id) {
+        router.push(`/patients/${newUser.$id}/register`);
+      } else {
+        console.log("New User false does not have an $id ", newUser);
+      }
     } catch (error) {
-        console.log('Error during user creation ', error);     
+      console.log("Error during user creation ", error);
     }
-    setIsLoading(false)
+    setIsLoading(false);
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
         <section className="mb-12 space-y-4">
-          <h1 className="header">Hi there </h1>
-          <p className="text-dark-700">Schedule your first appointment.</p>
+          <h1 className="header">New appointment</h1>
+          <p className="text-dark-700">Request a new appointment.</p>
         </section>
         <CustomFormField
           fieldType={FormFieldType.INPUT}
@@ -84,10 +79,7 @@ const PatientForm = () => {
           placeholder="(555) 123-4567"
         />
 
-        <SubmitButton isLoading={isLoading}>
-          Get Started
-        </SubmitButton>
-
+        <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
     </Form>
   );
