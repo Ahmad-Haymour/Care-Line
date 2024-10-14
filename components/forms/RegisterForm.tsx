@@ -48,9 +48,7 @@ const RegisterForm = ({ user }: { user: User }) => {
     ) {
       const blobFile = new Blob([values.identificationDocument[0]], {
         type: values.identificationDocument[0].type,
-      });
-      console.log('Blob File identification document >> ', values.identificationDocument );
-      
+      });      
 
       formData = new FormData();
       formData.append('blobFile', blobFile);
@@ -58,11 +56,6 @@ const RegisterForm = ({ user }: { user: User }) => {
     }
     const formattedBirthDate = new Date(values.birthDate).toISOString().split('T')[0]; // 'YYYY-MM-DD' format
     
-    for (const pair of formData.entries()) {
-      console.log(`${pair[0]}:`, pair[1]);
-    }
-        console.log('formattedBirthDate >',formattedBirthDate);
-
     try {
       const patientData = {
         ...values,
@@ -71,38 +64,9 @@ const RegisterForm = ({ user }: { user: User }) => {
         identificationDocument: formData,
       }
 
-      console.log('New patient >> ; ', patientData);
-
       const newPatient = await registerPatient(patientData);
 
       if (newPatient) return router.push(`/patients/${user.$id}/new-appointment`);
-
-      // const patient = {
-      //   userId: user.$id,
-      //   name: values.name,
-      //   email: values.email,
-      //   phone: values.phone,
-      //   birthDate: new Date(values.birthDate),
-      //   birthDate: new Date(values.birthDate),
-      //   gender: values.gender,
-      //   address: values.address,
-      //   occupation: values.occupation,
-      //   emergencyContactName: values.emergencyContactName,
-      //   emergencyContactNumber: values.emergencyContactNumber,
-      //   primaryPhysician: values.primaryPhysician,
-      //   insuranceProvider: values.insuranceProvider,
-      //   insurancePolicyNumber: values.insurancePolicyNumber,
-      //   allergies: values.allergies,
-      //   currentMedication: values.currentMedication,
-      //   familyMedicalHistory: values.familyMedicalHistory,
-      //   pastMedicalHistory: values.pastMedicalHistory,
-      //   identificationType: values.identificationType,
-      //   identificationNumber: values.identificationNumber,
-      //   identificationDocument: values.identificationDocument
-      //     ? formData
-      //     : undefined,
-      //   privacyConsent: values.privacyConsent,
-      // };
     
     } catch (error) {
       console.log("Error during register ", error);

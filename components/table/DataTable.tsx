@@ -89,8 +89,8 @@ export function DataTable<TData, TValue>({
           className="shad-gray-btn"
         >
           <Image
-            src='/assets/icons/arrow.svg'
-            alt='arrow'
+            src="/assets/icons/arrow.svg"
+            alt="arrow"
             width={24}
             height={24}
           />
@@ -101,9 +101,9 @@ export function DataTable<TData, TValue>({
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-             <Image
-            src='/assets/icons/arrow.svg'
-            alt='arrow'
+          <Image
+            src="/assets/icons/arrow.svg"
+            alt="arrow"
             width={24}
             height={24}
             className="rotate-180"

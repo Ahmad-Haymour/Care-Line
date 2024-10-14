@@ -1,8 +1,6 @@
 "use server";
 
 import { ID, Query, InputFile } from "node-appwrite";
-// import { InputFile } from "node-appwrite/file";
-
 import {
   BUCKET_ID,
   DATABASE_ID,
@@ -24,13 +22,9 @@ export const createUser = async (user: CreateUserParams) => {
       undefined,
       user.name
     );
-    console.log("New user :", newUser);
-    console.log("New user parsed as stringify >> ", parseStringify(newUser));
-
+  
     return parseStringify(newUser);
   } catch (error) {
-    console.log("Catch error: > ", error);
-
     // If user already exists
     if (error && error?.code === 409) {
       const documents = await users.list([Query.equal("email", [user.email])]);
@@ -44,12 +38,10 @@ export const getUser = async (userId: string) => {
   
   try {
     const user = await users.get(userId);
-    console.log("User exists ? > , ", user);
 
     if (!user) {
       console.log("User not found");
     }
-    console.log(parseStringify(user));
 
     return parseStringify(user);
   } catch (error) {
@@ -81,13 +73,6 @@ export const registerPatient = async ({
       }
     }
 
-    console.log({
-      identificationDocumentId: file?.$id || null,
-      identificationDocumentUrl: `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file?.$id}/view??project=${PROJECT_ID}`,
-      DATABASE_ID: DATABASE_ID,
-      PATIENT_COLLECTION_ID: PATIENT_COLLECTION_ID,
-    });
-
     const newPatient = await databases.createDocument(
       DATABASE_ID!,
       PATIENT_COLLECTION_ID!,
@@ -99,9 +84,6 @@ export const registerPatient = async ({
       }
     );
 
-    console.log("New Patient Actions: ", newPatient);
-    console.log("New Patient Stringify: ", parseStringify(newPatient));
-
     return parseStringify(newPatient);
   } catch (error) {
     console.error("An error occurred while creating a new patient:", error);
@@ -109,7 +91,6 @@ export const registerPatient = async ({
 };
 
 export const getPatient = async (userId: string) => {
-  console.log("Get patient id action, ", userId);
 
   try {
     const patients = await databases.listDocuments(
@@ -121,7 +102,6 @@ export const getPatient = async (userId: string) => {
     if (!patients) {
       console.log("Patients not found");
     }
-    console.log(parseStringify(patients.documents[0]));
 
     return parseStringify(patients.documents[0]);
   } catch (error) {

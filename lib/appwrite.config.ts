@@ -11,12 +11,6 @@ const {
     NEXT_PUBLIC_BUCKET_ID: BUCKET_ID,
 } = process.env;
 
-
-console.log("1 DATABASE_ID:", DATABASE_ID);
-console.log("2 PATIENT_COLLECTION_ID:", PATIENT_COLLECTION_ID);
-console.log("3 BUCKET_ID:", BUCKET_ID);
-console.log("4 APPOINTMENT_COLLECTION_ID: >", APPOINTMENT_COLLECTION_ID);
-
 if (!ENDPOINT || !PROJECT_ID || !API_KEY) {
     console.log('Missing Appwrite environment variables');
 }

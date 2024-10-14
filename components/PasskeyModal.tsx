@@ -31,12 +31,7 @@ const PasskeyModal = () => {
   useEffect(() => {
     const accessKey = encryptedKey && decryptKey(encryptedKey);
 
-    console.log('PATH >> ', path);
-
-    if (path)
-      
-      console.log('PROCESS >> ', process.env.NEXT_PUBLIC_ADMIN_PASSKEY);
-
+    if (path){
       if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY!.toString()) {
         setOpen(false)
         
@@ -44,6 +39,10 @@ const PasskeyModal = () => {
       } else {
         setOpen(true);
       }
+    } else {
+      console.log('Access Key not found!');
+      
+    }
   }, [encryptedKey]);
   
 
@@ -56,13 +55,9 @@ const PasskeyModal = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-
-    console.log("Look here >> passkey : ", passkey);
     
     if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
       const encryptedKey = encryptKey(passkey);
-
-      console.log('Encryptedkey >> ', encryptedKey);
       
       localStorage.setItem("accessKey", encryptedKey);
 
@@ -88,7 +83,7 @@ const PasskeyModal = () => {
             />
           </AlertDialogTitle>
           <AlertDialogDescription>
-            To access the admin page, please enter the passkey.
+            To access the admin page, please enter the passkey. (123456)
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div>

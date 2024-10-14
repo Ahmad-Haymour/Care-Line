@@ -5,26 +5,17 @@ import RegisterForm from "@/components/forms/RegisterForm";
 
 const Register = async ({ params: { userId } }: SearchParamProps) => {
   const user = await getUser(userId);
-
-  console.log('UserID Register Page undefiend ? > ', userId);
-  console.log('User Register Page undefiend ? > ', user);
-  
-  console.log({
-    HELLO_THERE: '<<<<<<<<<(==0',
-    UserRegisterPage: user,
-    UserId: userId,
-  });
   
   return (
     <div className="flex h-screen max-h-screen">
       <section className="container remove-scrollbar">
         <div className="sub-container max-w-[860px] flex-1 flex-col py-10">
           <Image
-            src={"/assets/icons/logo-full.svg"}
+            src={"/assets/brand/logo1.png"}
             width={1000}
             height={1000}
             alt="patient"
-            className="mb-12 h-10 w-fit"
+            className="mb-2 h-28 w-fit"
           />
 
           <RegisterForm user={user} />

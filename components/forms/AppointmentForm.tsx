@@ -61,7 +61,6 @@ const AppointmentForm = ({
         status = "pending";
         break;
     }
-    console.log("Type >> ", type);
 
     try {
       if (type === "create" && patientId) {
@@ -76,12 +75,6 @@ const AppointmentForm = ({
         };
 
         const appointment = await createAppointment(appointmentData);
-
-        console.log({
-          AppointmentData: appointmentData,
-          Appointment: appointment,
-          Type: type
-        });
         
         if (appointment) {
           form.reset();
@@ -90,7 +83,6 @@ const AppointmentForm = ({
           );
         }
       } else {
-        console.log("Updating appointment!");
         
         const appointmentToUpdate = {
           userId,
@@ -104,12 +96,8 @@ const AppointmentForm = ({
           type,
         };
         const updatedAppointment = await updateAppointment(appointmentToUpdate)
-        console.log('Appointment To Update > ', appointmentToUpdate);
-        console.log('Updated Appointment > ', updateAppointment);
-        
-        if (updatedAppointment){
-          console.log('Test');
-          
+       
+        if (updatedAppointment){          
           // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           setOpen && setOpen(false);
           form.reset();

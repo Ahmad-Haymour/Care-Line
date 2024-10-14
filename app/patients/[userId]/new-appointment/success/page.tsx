@@ -22,11 +22,11 @@ const Success = async ({
       <div className="success-img">
         <Link href="/">
           <Image
-            src={"/assets/icons/logo-full.svg"}
+            src={"/assets/brand/logo1.png"}
             height={1000}
             width={1000}
             alt="logo"
-            className="h-10 w-fit"
+            className="h-28 w-fit"
           />
         </Link>
         <section className="flex flex-col items-center">

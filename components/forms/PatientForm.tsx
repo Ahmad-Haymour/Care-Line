@@ -33,7 +33,6 @@ const PatientForm = () => {
         phone: values.phone,
       };
       const newUser = await createUser(user);
-      console.log("New user patientForm > ", newUser);
 
       if (newUser && newUser.$id) {
         router.push(`/patients/${newUser.$id}/register`);
@@ -50,8 +49,8 @@ const PatientForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
         <section className="mb-12 space-y-4">
-          <h1 className="header">New appointment</h1>
-          <p className="text-dark-700">Request a new appointment.</p>
+          <h1 className="header">Hi there 👋</h1>
+          <p className="text-dark-700">Get started with appointments.</p>
         </section>
         <CustomFormField
           fieldType={FormFieldType.INPUT}
